@@ -8,24 +8,24 @@
 .info
 {
     min-height: 95vh;
-    background-image: url('https://media.tenor.com/9yzaT3kxskAAAAAC/space-stars.gif');
+    background-image: url('../images/space-stars.gif');
     background-size: cover;
     background-position-x: center;
     /* overflow: hidden; */
     
 
 }
-h1{
+.heading-info{
     display: inline-flex;
     font-family: "Impact", sans-serif;
-    background: url("https://wallpapercave.com/wp/wp2521592.jpg");
+    background: url("../images/infinity-saga-bg.jpg");
 
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: #5b728a54;
     animation: move 30s linear infinite;
     letter-spacing: .3rem;
-    font-size: 5rem;
+    font-size: 10rem;
   }
 
 
@@ -89,6 +89,7 @@ p
     justify-content: center;
     align-items: center;
     border-radius: 20px;
+    flex-wrap: wrap;
 
 }
 
@@ -157,6 +158,11 @@ opacity: 0;
     {
         grid-row: 1;
     }
+
+    .heading-info
+    {
+        font-size: 6rem;
+    }
 }
 
 /* Map */
@@ -170,7 +176,7 @@ opacity: 0;
 
 .map-body
 {
-    background-image: url('https://media.tenor.com/9yzaT3kxskAAAAAC/space-stars.gif');
+    background-image: url('../images/space-stars.gif');
     background-size: cover;
     color: #f2f2f2;
 }
@@ -191,7 +197,12 @@ opacity: 0;
    margin: 1rem;
 }
 
-
+/* .stones-content
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+} */
 
 /* SECTION 2 */
 
@@ -203,7 +214,7 @@ body
 .stones-info
 {
 
-    background-image: url('https://media.tenor.com/9yzaT3kxskAAAAAC/space-stars.gif');
+    background-image: url('../images/space-stars.gif');
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -220,13 +231,13 @@ body
     display: flex;
     flex-direction: column;
     /* padding-bottom: 2rem; */
-    filter: drop-shadow(0 0 0.75rem rgb(102, 7, 102));
+    filter: drop-shadow(0 0 0.75rem rgb(132, 14, 132));
     transform-style: preserve-3d;
     
 }
 
 
-.stones-info > .container .box{
+.stones-info > .container .box-stone{
     position: relative;
     width: 200px;
     height: 200px;
@@ -238,7 +249,7 @@ body
     
 }
 
-.stones-info > .container .box .body{
+.stones-info > .container .box-stone .body{
     position: absolute;
     top: 0;
     left: 0;
@@ -252,7 +263,7 @@ body
 
 
 
-.stones-info > .container .box .body .imgContainer{
+.stones-info > .container .box-stone .body .imgContainer{
     background-size: cover;
     background-position-y: center;
     position: absolute;
@@ -264,7 +275,7 @@ body
     border-radius: 20%;
 }
 
-.stones-info > .container .box .body .imgContainer img{
+.stones-info > .container .box-stone .body .imgContainer img{
     position: absolute;
     top: 0;
     left: 0;
@@ -273,7 +284,7 @@ body
     object-fit: cover;
 }
 
-.stones-info > .container .box .body .content{
+.stones-info > .container .box-stone .body .content{
     position: absolute;
     top: 0;
     left: 0;
@@ -286,19 +297,19 @@ body
     margin: 0;
 }
 
-.stones-info > .container .box:hover .body{
+.stones-info > .container .box-stone:hover .body{
     transform: rotateY(180deg);
 }
 
-.stones-info > .container .box .body .content div{
+.stones-info > .container .box-stone .body .content div{
     transform-style: preserve-3d;
     padding: 20px;
-    background: linear-gradient(45deg, #ebbdcf,#d6cd77);
+    background: linear-gradient(45deg, #c6a9b4,#b9b37d);
     transform: translateZ(100px);
     border-radius: 20%;
 }
 
-.stones-info > .container .box .body .content div h3{
+.stones-info > .container .box-stone .body .content div h3{
     letter-spacing: 1px;
 }
 
@@ -325,12 +336,17 @@ body
 a
 {
     text-transform: uppercase;
+    text-decoration: none;
 
+}
+.stones-info a{
+    text-decoration: none;
 }
 
 .stones-info a:hover
 {
     border-bottom: 2px solid salmon;
+    
 }
 
 
@@ -340,8 +356,8 @@ a
     position: relative;
     width: 280px;
     height: 400px;
-    color: #2e2d31;
-    background: #131313;
+    color: #eee;
+    background: #1F2223;
     overflow: hidden;
     border-radius: 20px;
   }
@@ -368,7 +384,7 @@ a
       /* edit the width to fit card */
     width: 100%;
     padding: 20px;
-    background: #f2f2f2;
+    background: #1F2223;
     border-top-left-radius: 20px;
       /* edit here to change the height of the content box */
     transform: translateY(205px);
@@ -385,11 +401,11 @@ a
     height: 100px;
     transform: rotate(-175deg);
     border-radius: 50%;
-    box-shadow: inset 48px 48px #f2f2f2;
+    box-shadow: inset 48px 48px #1F2223;
   }
   
   .card_title {
-    color: #131313;
+    color: #eee;
     line-height: 15px;
   }
   
@@ -404,6 +420,7 @@ a
     font-size: 14px;
     opacity: 0;
     transition: opacity .5s;
+    color: #eee;
   }
   
    .card_content_own:hover {

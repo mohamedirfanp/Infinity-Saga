@@ -20,7 +20,7 @@ function showBoxes() {
 			console.log('here');
 			box.style.display = 'block';
 			box.style.opacity = 1;
-			box.style.backgroundImage = 'url("https://media.tenor.com/JaV6dQCBxVcAAAAd/marvel-intro.gif")';
+			box.style.backgroundImage = 'url("./assets/images/marvel-intro.gif")';
 			box.style.backgroundSize = 'cover';
 			box.style.backgroundPosition = 'center';
 		}
@@ -283,12 +283,12 @@ if (window.location.href.includes('avengers.html'))
 {
   document.addEventListener("DOMContentLoaded", () => {
 	const hash = "f00b2e5379ea0ff6ad82adcf65b5466a";
-	
+	// https://gateway.marvel.com/v1/public/events/29/characters?limit=99&ts=1&apikey=6bc0b96963497989d6bb1b0a089669f2&hash=324b8547eb8de98efc0f67195618e426
 	axios.get(`${baseUrl}/comics/32477/characters?ts=1&apikey=${publicKey}&hash=${hash}`)
 	.then((response) => {
 	  const avengers = response.data.data.results;
 	  const row = document.getElementById('avengers');
-	  const common_description = "Heroes, the embodiment of bravery and selflessness, rise above adversity to protect the vulnerable and inspire hope in the hearts of all. With unwavering determination, they face formidable challenges, wielding their unique abilities to vanquish evil and restore balance to the world.";
+	  const common_description = ", the embodiment of bravery and selflessness, rise above adversity to protect the vulnerable and inspire hope in the hearts of all. With unwavering determination, they face formidable challenges, wielding their unique abilities to vanquish evil and restore balance to the world.";
 	  avengers.forEach((character) => {
 		const path = character.thumbnail.path
 		let column = `<div class="col d-flex justify-content-center">
@@ -297,8 +297,8 @@ if (window.location.href.includes('avengers.html'))
 			</div>
 		<div class="card_content_own">
 			<span class="card_title">${character.name}</span>
-			<span class="card_subtitle">${character.description.length >= 1?character.description.slice(0,35) + '...': common_description.substring(0,35)+'...'}</span>
-			<p class="card_description">${character.description.length >= 1?character.description.substring(0,280) : common_description}</p>
+			<span class="card_subtitle">${character.description.length >= 1?character.description.slice(0,35) + '...': character.name+common_description.substring(0,35)+'...'}</span>
+			<p class="card_description">${character.description.length >= 1?character.description.substring(0,280) : character.name+common_description}</p>
 		</div>
 		</article>
 	</div>`
