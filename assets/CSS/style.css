@@ -1,0 +1,417 @@
+/* https://www.reddit.com/r/midjourney/comments/10idk52/infinity_stones/ */
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
+*
+{
+    font-family: 'Marcellus', serif;
+}
+
+.info
+{
+    min-height: 95vh;
+    background-image: url('https://media.tenor.com/9yzaT3kxskAAAAAC/space-stars.gif');
+    background-size: cover;
+    background-position-x: center;
+    /* overflow: hidden; */
+    
+
+}
+h1{
+    display: inline-flex;
+    font-family: "Impact", sans-serif;
+    background: url("https://wallpapercave.com/wp/wp2521592.jpg");
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #5b728a54;
+    animation: move 30s linear infinite;
+    letter-spacing: .3rem;
+    font-size: 5rem;
+  }
+
+
+
+@keyframes move {
+  from { background-position: 0 80%; }
+  to { background-position: 100% 50%; }
+}
+
+.end
+{
+    display: flex;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+p
+{
+    color: #f2f2f2;
+}
+
+.info > .container {
+    width: 100%;
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+        }
+    
+ .content {
+    width: 100%;
+    height: 70%;
+    background: #85818f54;
+    border-radius: 10px;
+/*  transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); */
+    box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
+                0 0  0 2px rgb(190, 190, 190),
+                0.3em 0.3em 1em rgba(0,0,0,0.3);
+                
+            }
+.box-content
+{
+    --column-count : 2;
+    height: 100%;
+    display: grid;
+    grid-template-columns : repeat(var(--column-count), 1fr);
+    overflow: hidden;
+
+}
+
+
+
+.box-info {
+    display:none;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+
+}
+
+.text-content
+{
+    /* width : 60%; */
+    padding : 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-content
+{
+    max-width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    
+}
+
+@keyframes fade-in {
+0% {
+opacity: 0;
+}
+    25%
+    {
+    opacity: 0.8;
+    }
+50%
+    {
+    opacity: 1;
+    }
+75%
+    {
+    opacity: 0.8;
+    }
+100% {
+opacity: 0;
+}
+}
+.active-own
+{
+    display: flex;
+    flex-wrap: wrap;
+    animation: fade-in 8s ease forwards;
+
+/*   animation: type 2.5s steps(26), blink .5s step-end infinite alternate; */
+}
+
+
+
+/* Media Query */
+    
+@media screen and (max-width:850px) {
+    /* .stones-info > .container 
+    {
+        flex-direction: row;
+        flex-wrap: wrap;
+    } */
+    .box-content
+    {
+        --column-count : 1;
+    }
+
+    .img-content
+    {
+        grid-row: 1;
+    }
+}
+
+/* Map */
+
+.map
+{
+  height: 500px;
+
+}
+
+
+.map-body
+{
+    background-image: url('https://media.tenor.com/9yzaT3kxskAAAAAC/space-stars.gif');
+    background-size: cover;
+    color: #f2f2f2;
+}
+
+
+.box
+{
+    width: 200px;
+    height: 100px;
+    background: #85818f54;
+    border-radius: 10px;
+    /*  transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); */
+    box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
+            0 0  0 2px rgb(190, 190, 190),
+            0.3em 0.3em 1em rgba(0,0,0,0.3);
+    display: inline-flex;
+    justify-content: center;
+   margin: 1rem;
+}
+
+
+
+/* SECTION 2 */
+
+body
+{
+    min-height: 90vh;
+}
+
+.stones-info
+{
+
+    background-image: url('https://media.tenor.com/9yzaT3kxskAAAAAC/space-stars.gif');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+ .stones-info > .container
+{
+    background-image: url('../images/gaunlet.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    /* padding-bottom: 2rem; */
+    filter: drop-shadow(0 0 0.75rem rgb(102, 7, 102));
+    transform-style: preserve-3d;
+    
+}
+
+
+.stones-info > .container .box{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+    perspective: 900px;
+    cursor: pointer;
+
+
+    
+}
+
+.stones-info > .container .box .body{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    transform-style: preserve-3d;
+    transition: 0.9s ease;
+    background-color: #333;
+    border-radius: 20%;
+}
+
+
+
+.stones-info > .container .box .body .imgContainer{
+    background-size: cover;
+    background-position-y: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    border-radius: 20%;
+}
+
+.stones-info > .container .box .body .imgContainer img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stones-info > .container .box .body .content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transform: rotateY(180deg);
+    margin: 0;
+}
+
+.stones-info > .container .box:hover .body{
+    transform: rotateY(180deg);
+}
+
+.stones-info > .container .box .body .content div{
+    transform-style: preserve-3d;
+    padding: 20px;
+    background: linear-gradient(45deg, #ebbdcf,#d6cd77);
+    transform: translateZ(100px);
+    border-radius: 20%;
+}
+
+.stones-info > .container .box .body .content div h3{
+    letter-spacing: 1px;
+}
+
+.flex-left
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.flex-right
+{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    position: absolute;
+    top: 50;
+    right: 0;
+}
+a
+{
+    text-transform: uppercase;
+
+}
+
+.stones-info a:hover
+{
+    border-bottom: 2px solid salmon;
+}
+
+
+/* Avengers Section CSS */
+
+.card_own {
+    position: relative;
+    width: 280px;
+    height: 400px;
+    color: #2e2d31;
+    background: #131313;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+  
+  .img {
+
+    /* padding: 6px 12px; */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+
+  }
+  
+  .card_title {
+    font-weight: bold;
+  }
+  
+  .card_content_own {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+      /* edit the width to fit card */
+    width: 100%;
+    padding: 20px;
+    background: #f2f2f2;
+    border-top-left-radius: 20px;
+      /* edit here to change the height of the content box */
+    transform: translateY(205px);
+    transition: transform .25s;
+    cursor: pointer;
+  }
+  
+  .card_content_own::before {
+    content: '';
+    position: absolute;
+    top: -47px;
+    right: -45px;
+    width: 100px;
+    height: 100px;
+    transform: rotate(-175deg);
+    border-radius: 50%;
+    box-shadow: inset 48px 48px #f2f2f2;
+  }
+  
+  .card_title {
+    color: #131313;
+    line-height: 15px;
+  }
+  
+  .card_subtitle {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 10px;
+    /* text-overflow: ellipsis; */
+  }
+  
+  .card_description {
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity .5s;
+  }
+  
+   .card_content_own:hover {
+    transform: translateY(25px);
+  }
+  
+  .card_content_own:hover .card_description {
+    opacity: 1;
+    transition-delay: .25s;
+  }
+    
