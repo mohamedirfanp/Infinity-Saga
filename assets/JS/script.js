@@ -2,7 +2,7 @@
 let currentBox = 1;
 function showBoxes() {
 	const boxes = document.querySelectorAll('.box-info');
-	let delay = 8000;
+	let delay = 5000;
 
 	for(let i=1;i< boxes.length;i++)
 	{
@@ -17,7 +17,7 @@ function showBoxes() {
 		}
 		else if(currentBox === boxes.length - 1)
 		{
-			console.log('here');
+
 			box.style.display = 'block';
 			box.style.opacity = 1;
 			box.style.backgroundImage = 'url("./assets/images/marvel-intro.gif")';
@@ -26,14 +26,13 @@ function showBoxes() {
 		}
 		else
 		{
-			console.log(box.childNodes)
 			box.style.display = 'flex';
 			box.style.opacity = 1;
 			
 		}
 		
 		}, delay);
-		delay += 8000;
+		delay += 5000;
 	}
 
 
@@ -47,27 +46,35 @@ if(window.location.href.includes("index.html"))
 }
 
 
-
-
-
-
-
-
 // Map 
 var stoneLocations = [
-  { name: 'Soul Stone', coordinates : [143.8807,-34.6978], icon: 'assets/images/soulStone-nobg.gif' }, // Australia
-  { name: 'Mind Stone',coordinates: [-95.9982,71.2391], icon: 'assets/images/mindStone-nobg.gif' }, // N- America
-  { name: 'Space Stone', coordinates:[78.9734, 22.6569], icon: 'assets/images/spaceStone-nobg.gif' }, // India
-  { name: 'Time Stone', coordinates: [-70.5364, -50.9292], icon: 'assets/images/timeStone-nobg.gif' }, // S- America
-  { name: 'Reality Stone', coordinates:[97.3468,80.1304], icon: 'assets/images/realityStone-nobg.gif' }, // Russia
-  { name: 'Power Stone',coordinates:[ 2.3522, 48.8566], icon: 'assets/images/powerStone-nobg.gif' }, // France
+  { id:1, name: 'Soul Stone', coordinates : [143.8807,-34.6978], icon: 'assets/images/soulStone-nobg.gif', capture: './assets/images/soul-stone.gif' }, // Australia
+  { id:2, name: 'Mind Stone',coordinates: [-95.9982,71.2391], icon: 'assets/images/mindStone-nobg.gif', capture: './assets/images/mind-stone.gif' }, // N- America
+  { id:3, name: 'Space Stone', coordinates:[78.9734, 22.6569], icon: 'assets/images/spaceStone-nobg.gif', capture: "./assets/images/space-stone.gif" }, // India
+  { id:4, name: 'Time Stone', coordinates: [-70.5364, -50.9292], icon: 'assets/images/timeStone-nobg.gif', capture: "./assets/images/time-stone.gif" }, // S- America
+  { id:5, name: 'Reality Stone', coordinates:[97.3468,80.1304], icon: 'assets/images/realityStone-nobg.gif', capture: "./assets/images/reality-stone.gif" }, // Russia
+  { id:6, name: 'Power Stone',coordinates:[ 2.3522, 48.8566], icon: 'assets/images/powerStone-nobg.gif',capture: './assets/images/power-stone.gif' }, // France
 ];
 let map;
 let thanosMarker;
 
+let stoneCollectedByThanos = [];
+let isDeployed = false;
+let timeout;
+
+
+
 function placeThanos()
 {
-  var stone = stoneLocations[Math.floor(Math.random() * stoneLocations.length)];
+  while(true)
+  {
+	var stone = stoneLocations[Math.floor(Math.random() * stoneLocations.length)];
+	if(!stoneCollectedByThanos.includes(stone.id))
+	{
+		break;
+	}
+  }
+
   let longitude = stone.coordinates[0];
   let latitude = stone.coordinates[1];
   let thanosCoordinates = getRandomCoordinates(latitude,longitude);
@@ -76,8 +83,6 @@ function placeThanos()
 	id : 'thanos',
 	icon: 'assets/images/thanos.jpg'
   }
-  console.log(stone)
-  console.log(plot)
   plotInMap(plot)
   // Move To Thanos()
   MoveThanos(thanosCoordinates, stone.coordinates, stone)
@@ -104,29 +109,135 @@ function plotInMap(plot)
 
   return
 }
+function plotStones()
+{
+	if(stoneLocations.length === stoneCollectedByThanos.length)
+	{
+		const img_content = document.getElementById('img-content');
+		const text_content = document.getElementById('text-content')
+		const alert_box = document.getElementById('alert-box')
+		setTimeout(()=> {
+			alert_box.style.display = 'none';
+			stoneCollectedByThanos = [];
+			plotStones();
+		}, 4000)
+		alert_box.style.display ='flex';
+		img_content.src = "./assets/images/thanos-snap.gif";
+		text_content.innerText = 'Thanos Accomplished his mission'
+		return;
+
+	}
+
+	stoneLocations.forEach(function (marker) {
+		if(!stoneCollectedByThanos.includes(marker.id))
+		{
+			// create a DOM element for the marker
+			var el = document.createElement('div');
+			el.className = 'marker';
+			el.id = marker.name.split(' ')[0];
+			el.style.backgroundImage =
+				`url(${marker.icon})`;
+			  el.style.backgroundPosition = 'center';
+			  el.style.backgroundSize = 'contain';
+				el.style.width = '40px';
+			el.style.height ='40px';
+	  
+			// add marker to map
+			new maptilersdk.Marker(el)
+				.setLngLat(marker.coordinates)
+				.addTo(map);
+		}
+	  });
+	
+	  placeThanos();
+
+}
+function removeDivsByClassName(className) {
+	var divs = document.querySelectorAll("." + className);
+  
+	divs.forEach(function (div) {
+	  div.parentNode.removeChild(div);
+	});
+  }
+
+
+function deployAvengers()
+{
+	const img_content = document.getElementById('img-content');
+	const text_content = document.getElementById('text-content')
+	const alert_box = document.getElementById('alert-box')
+	const deployBtn = document.getElementById('deployBtn');
+
+	setTimeout(() => {
+		alert_box.style.display = 'none';
+		thanosMarker.remove();
+		plotStones()
+	}, 4000)
+	
+	alert_box.style.display = 'flex';
+	img_content.src = "./assets/images/avengers-assemble.gif";
+	text_content.innerText = 'Avengers Assemble';
+	deployBtn.style.visibility = 'hidden'
+	clearTimeout(timeout);
+}
+
+function thanosCapture(stone) {
+	thanosMarker.remove();
+	const img_content = document.getElementById('img-content');
+	const deployBtn = document.getElementById('deployBtn');
+	const text_content = document.getElementById('text-content')
+	deployBtn.style.visibility = 'hidden';
+
+	img_content.src = stone.capture;
+	text_content.innerHTML = `<p>Thanos Caputured the ${stone.name}</p>`;
+	setTimeout(function () {
+		const alert_box = document.getElementById('alert-box');
+		stoneCollectedByThanos.push(stone.id);
+		alert_box.style.display = 'none';
+		removeDivsByClassName('marker');
+		plotStones();
+
+	},6000);
+  }
+
 
 function MoveThanos(thanosCoordinates, stoneCoordinates, stone)
 {
   let delay = 5000;
-
-	const myInterval = setInterval(()=> {
+  let maxDistance = 500;
+//   thanosMarker.remove();
+	let myInterval = setInterval(()=> {
 	  thanosMarker.remove();
-	  thanosCoordinates = moveThanosToStone(stoneCoordinates[1],stoneCoordinates[0], thanosCoordinates[1],thanosCoordinates[0],500)
-
-	  let distanceBetween = Math.floor(getDistance(stoneCoordinates[1],stoneCoordinates[0], thanosCoordinates[1],thanosCoordinates[0]))
-	  if(distanceBetween <= 2000)
-	  {
-		alert('Avengers Alert\n'+`Thanos heading to ${stone.name} and he away ${distanceBetween} Miles`)
-
-	   
-		clearInterval(myInterval);
-	  }
-
+	  thanosCoordinates = moveThanosToStone(stoneCoordinates[1],stoneCoordinates[0], thanosCoordinates[1],thanosCoordinates[0],maxDistance)
 	  plotInMap({
 		coordinates : thanosCoordinates,
 		id : 'thanos',
 		icon: 'assets/images/thanos.jpg'
 	  })
+	  let distanceBetween = Math.floor(getDistance(stoneCoordinates[1],stoneCoordinates[0], thanosCoordinates[1],thanosCoordinates[0]))
+	  if(distanceBetween <= 1000)
+	  {
+		// alert('Avengers Alert\n'+`Thanos heading to ${stone.name} and he away ${distanceBetween} Miles`)
+		const alert_box = document.getElementById('alert-box');
+		const text_content = document.getElementById('text-content');
+		const img_content = document.getElementById('img-content');
+		const deployBtn = document.getElementById('deployBtn');
+
+		alert_box.style.display = 'flex';
+		text_content.innerText = 'Avengers Alert\n'+`Thanos heading to ${stone.name} and he is ${distanceBetween} Miles away`;
+		img_content.src= './assets/images/alert.gif';
+		deployBtn.style.visibility = 'visible'
+
+		timeout = setTimeout(()=> {
+			clearInterval(myInterval);
+			thanosCapture(stone);
+
+		}, 5000);
+
+		clearInterval(myInterval);
+	  }
+
+
 	}, delay)
 }
 
@@ -142,7 +253,8 @@ function getRandomCoordinates(latitude, longitude) {
   // Generate a random angle between 0 and 2π (360 degrees)
   const randomAngle = Math.random() * 2 * Math.PI;
 
-  const randomDistance = 3000;
+  // PROD : Increse the Distance
+  const randomDistance = 1500;
 
   // Calculate the new latitude and longitude
   const newLatitude = Math.asin(Math.sin(latRad) * Math.cos(randomDistance / earthRadius) + Math.cos(latRad) * Math.sin(randomDistance / earthRadius) * Math.cos(randomAngle));
@@ -236,25 +348,8 @@ if (window.location.href.includes("map.html")) {
 	});
 
 
-	stoneLocations.forEach(function (marker) {
-	  // create a DOM element for the marker
-	  var el = document.createElement('div');
-	  el.className = 'marker';
-	  el.id = marker.name.split(' ')[0];
-	  el.style.backgroundImage =
-		  `url(${marker.icon})`;
-		el.style.backgroundPosition = 'center';
-		el.style.backgroundSize = 'contain';
-		  el.style.width = '40px';
-	  el.style.height ='40px';
+	plotStones();
 
-	  // add marker to map
-	  new maptilersdk.Marker(el)
-		  .setLngLat(marker.coordinates)
-		  .addTo(map);
-	});
-
-	placeThanos();
 
   })
 }
@@ -266,17 +361,6 @@ if (window.location.href.includes("map.html")) {
 const baseUrl = "https://gateway.marvel.com/v1/public";
 const publicKey = "95c0cafca94966e9dcb4decea816c8b3";
 const privateKey = "8fcffe2dbf2531d56fe9d9fbfe2e13e907449b85"
-
-
-
-
-function generateHash(publicKey,privateKey)
-{
-  const key = 123;
-  const hash = CryptoJS.MD5(`${key}${privateKey}${publicKey}`).toString();
-  return hash;
-}
-
 
 // Calling Teams on Loading Page
 if (window.location.href.includes('avengers.html'))
